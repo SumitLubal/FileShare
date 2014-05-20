@@ -1,4 +1,5 @@
 package share;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-public class PathTest implements MouseListener{
+public class PathTest implements MouseListener {
 	private JTree tree;
 	private ArrayList<String> file;
 
@@ -37,7 +38,9 @@ public class PathTest implements MouseListener{
 			buildTreeFromString(model, "Node 1/Node 1/Node 3/Node 5");
 		} else {
 			for (int i = 0; i < files.size(); i++) {
-				buildTreeFromString(model, files.get(i));
+				if (files.get(i).contains(loginframework.Frame.userName)) { //add to list if username is there
+					buildTreeFromString(model, files.get(i));
+				}
 			}
 		}
 		// UI
@@ -121,13 +124,13 @@ public class PathTest implements MouseListener{
 		TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
 		if (selRow != -1) {
 			if (e.getClickCount() == 1) {
-				//mySingleClick(selRow, selPath);
-				
+				// mySingleClick(selRow, selPath);
+
 			} else if (e.getClickCount() == 3) {
-				//myDoubleClick(selRow, selPath);
-				System.out.println(""+selPath+" "+selRow);
-				System.out.println(file.get(selRow-1));
-				
+				// myDoubleClick(selRow, selPath);
+				System.out.println("" + selPath + " " + selRow);
+				System.out.println(file.get(selRow - 1));
+
 			}
 		}
 	}
@@ -139,24 +142,24 @@ public class PathTest implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
