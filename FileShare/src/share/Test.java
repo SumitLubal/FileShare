@@ -200,8 +200,7 @@ public class Test extends JFrame implements Runnable, ActionListener {
 						String addressOfNode;
 						System.out.println("Communicating with: "
 								+ (addressOfNode = HTTPClientEcho
-										.getNodeIPAdress(chooser.ipField
-												.getText())));
+										.getNodeIPAdress()));
 						if (addressOfNode != null) {
 							sendToCluster = true;
 							setDirectory.setEnabled(false);
@@ -314,7 +313,7 @@ public class Test extends JFrame implements Runnable, ActionListener {
 					+ loginframework.Frame.userName + "'");
 
 		} else if (pressedButton.equals(browseCluster)) {
-			String add = HTTPClientEcho.getNodeIPAdress("");
+			String add = HTTPClientEcho.getNodeIPAdress();
 			try {
 				new FileBrowserClient(add);
 			} catch (UnknownHostException e1) {

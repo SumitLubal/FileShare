@@ -2,6 +2,12 @@ package share;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -11,6 +17,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import loginframework.DB;
+
+import RMI.HTTPClientEcho;
 public class PathTest implements MouseListener {
 	private JTree tree;
 	private ArrayList<String> file;
@@ -130,9 +139,50 @@ public class PathTest implements MouseListener {
 				// myDoubleClick(selRow, selPath);
 				System.out.println("" + selPath + " " + selRow);
 				System.out.println(file.get(selRow - 1));
-
+				String add = HTTPClientEcho.getNodeIPAdress();
+				requestFileDownload(add,file.get(selRow - 1),loginframework.Frame.userName);
 			}
 		}
+	}
+
+	private void requestFileDownload(String remoteIP, String filePath,String username) {
+			// TODO Auto-generated method stub
+			filePath  = "/"+username+"/"+new File(filePath).getName();
+			Socket s = null;
+			BufferedReader get = null;
+			PrintWriter put = null;
+			try {
+				System.out.println("Server free" +remoteIP);
+				s = new Socket(remoteIP, 8085);
+				get = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				put = new PrintWriter(s.getOutputStream(), true);
+
+				String u, f;
+				System.out.println("FileName from server " + filePath);
+				put.println(filePath);
+				String name = get.readLine();
+				
+				
+				String str = share.Server.dirPath + "/" + username + "/";// saves
+																				// to
+																				// specified
+				// folder
+				new File(str).mkdirs();
+				FileOutputStream fs = new FileOutputStream(new File(str,
+						name));
+
+				while ((u = get.readLine()) != null) {
+					System.out.println(u);
+					byte jj[] = u.getBytes();
+					fs.write(jj);
+				}
+				fs.close();
+				System.out.println("File received");
+				s.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
 	}
 
 	public static void main(String[] args) {

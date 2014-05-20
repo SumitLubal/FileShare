@@ -1,0 +1,1 @@
+		String querry = "UPDATE `cluster`.`node` SET `loads` = '0' WHERE `node`.`ip` = '"+hostName+"'";		DBManager.fireQuerry(querry);

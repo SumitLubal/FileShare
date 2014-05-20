@@ -7,14 +7,17 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class HTTPClientEcho {
-	public static String getNodeIPAdress(String serverAddress) {
+	
+	private static String serverAddress = "10.10.13.166";
+
+	public static String getNodeIPAdress() {
 
 		Socket smtpSocket = null;
 		DataOutputStream os = null;
 		DataInputStream is = null;
 		String nodeAddress = null;
 		try {
-			smtpSocket = new Socket(serverAddress, 48103);
+			smtpSocket = new Socket(serverAddress , 48103);
 			os = new DataOutputStream(smtpSocket.getOutputStream());
 			is = new DataInputStream(smtpSocket.getInputStream());
 		} catch (UnknownHostException e) {
