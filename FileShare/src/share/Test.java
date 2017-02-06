@@ -16,8 +16,6 @@ import java.net.UnknownHostException;
 import java.util.List;
 import javax.swing.*;
 
-import org.omg.CORBA.portable.InputStream;
-
 import loginframework.ActivityLogger;
 import loginframework.DB;
 import loginframework.UserAndPass;
